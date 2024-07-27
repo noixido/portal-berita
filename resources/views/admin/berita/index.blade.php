@@ -74,8 +74,13 @@
                             </td>
 
                             <td class="px-6 py-4">
-                                <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->slug }}"
-                                    class="w-10">
+                                @if ($item->thumbnail)
+                                    <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->slug }}"
+                                        class="w-10">
+                                @else
+                                    <img src="/images/banner.jpg" alt="{{ $item->slug }}" class="w-10">
+                                @endif
+
                             </td>
                             <td class="px-6 py-4">
                                 {{ $item->judul }}

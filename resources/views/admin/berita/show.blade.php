@@ -10,8 +10,13 @@
                 -
                 {{ date('j F Y, H:i', strtotime($beritas->created_at)) }} WIB
             </h3>
-            <img src="{{ asset('storage/' . $beritas->thumbnail) }}" alt="{{ $beritas->judul }}"
-                class="mx-auto object-cover w-2/4">
+            @if ($beritas->thumbnail)
+                <img src="{{ asset('storage/' . $beritas->thumbnail) }}" alt="{{ $beritas->judul }}"
+                    class="mx-auto object-cover w-2/4">
+            @else
+                <img src="/images/banner.jpg" alt="{{ $beritas->judul }}" class="mx-auto object-cover w-2/4">
+            @endif
+
             <p class="font-normal text-justify text-md mt-10 whitespace-pre-wrap">{{ $beritas->deskripsi }}</p>
         </div>
         <div class="w-full p-6">

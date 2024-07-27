@@ -47,7 +47,7 @@ class PortalBeritaController extends Controller
         return view('welcome', compact('nav', 'nav2', 'carousel', 'trending', 'headline', 'hariIni'));
     }
 
-    public function showAll()
+    public function showAll(Request $request)
     {
         $nav = Kategori::query()
             ->limit(4)
@@ -55,12 +55,23 @@ class PortalBeritaController extends Controller
         $nav2 = Kategori::query()
             ->orderBy('nama_kategori', 'asc')
             ->get();
-        $beritas = Berita::query()
-            ->with('kategori')
-            ->where('status_publish', 'publish')
-            ->orderBy('created_at', 'desc')
-            ->paginate(20)
-            ->onEachSide(2);
+        if ($request->has('search')) {
+            $beritas = Berita::query()
+                ->with('kategori')
+                ->orderBy('created_at', 'desc')
+                ->where('judul', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('slug', 'LIKE', '%' . $request->search . '%')
+                ->where('status_publish', 'publish')
+                ->paginate(20)
+                ->onEachSide(2);
+        } else {
+            $beritas = Berita::query()
+                ->with('kategori')
+                ->orderBy('created_at', 'desc')
+                ->where('status_publish', 'publish')
+                ->paginate(20)
+                ->onEachSide(2);
+        }
         return view('all-news', compact('nav', 'nav2', 'beritas'));
     }
 

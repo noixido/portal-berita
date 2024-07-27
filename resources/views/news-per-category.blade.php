@@ -36,11 +36,9 @@
                         Berita</span>
                 </a>
                 <div class="flex items-center space-x-6 rtl:space-x-reverse">
-                    <form action="#" method="GET" class="max-w-sm mx-auto">
-                        @csrf
-                        <input type="text" id="search" placeholder="cari berita..."
-                            class="block w-96 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </form>
+                    <a href="{{ route('semua-berita') }}" type="button"
+                        class="text-black hover:text-gray-700 border border-black hover:border-gray-700 hover:bg-slate-100 focus:ring-4 focus:outline-none focus:ring-black font-medium rounded-lg text-sm px-5 py-1 text-center me-2 mt-1">Cari
+                        Berita</a>
                     @auth
                         <form action="{{ route('logout') }}">
                             @csrf
@@ -109,8 +107,13 @@
                 <div
                     class="w-64 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a href="{{ route('satu-berita', $item->slug) }}">
-                        <img class="rounded-t-lg" src="{{ asset('storage/' . $item->thumbnail) }}"
-                            alt="{{ $item->judul }}" />
+                        @if ($item->thumbnail)
+                            <img class="rounded-t-lg" src="{{ asset('storage/' . $item->thumbnail) }}"
+                                alt="{{ $item->judul }}" />
+                        @else
+                            <img class="rounded-t-lg" src="/images/banner.jpg" alt="{{ $item->judul }}" />
+                        @endif
+
                     </a>
                     <div class="p-5">
                         <a href="{{ route('satu-berita', $item->slug) }}">

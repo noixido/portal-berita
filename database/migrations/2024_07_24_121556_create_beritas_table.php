@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('judul');
             $table->string('slug');
             $table->text('deskripsi');
-            $table->string('thumbnail');
+            $table->string('thumbnail')->nullable();
             $table->bigInteger('kategori_id');
             $table->string('status_berita');
             $table->string('status_publish');
